@@ -4,11 +4,13 @@
 
 import React, { Component } from 'react';
 import {
-    Image,
-    ListView,
-    StyleSheet,
-    Text,
+    TouchableHighlight,
     View,
+    ListView,
+    ScrollView,
+    Image,
+    Text,
+    StyleSheet,
 } from 'react-native';
 
 import Swiper from 'react-native-swiper';
@@ -29,6 +31,7 @@ export default class extends Component {
             }),
             loaded: false,
         };
+        this.renderItem = this.renderItem.bind(this);
     }
 
     componentDidMount() {
@@ -55,14 +58,16 @@ export default class extends Component {
             return this.renderLoadingView();
         }
         return (
-            <View style={{ flex: 1 }}>
-                {this.renderSwiper() }
-                <ListView
-                    dataSource={this.state.stories}
-                    renderRow={this.renderItem}
-                    style={styles.listView}
-                    />
-            </View>
+            <ScrollView style={{ flex: 1 }}>
+                <View style={{ flex: 1 }}>
+                    {this.renderSwiper() }
+                    <ListView
+                        dataSource={this.state.stories}
+                        renderRow={this.renderItem}
+                        style={styles.listView}
+                        />
+                </View>
+            </ScrollView>
         )
     }
 
@@ -72,17 +77,26 @@ export default class extends Component {
         );
     }
 
-    renderItem(item) {
+    renderItem(news) {
+
+        let goDetail = () => this.props.navigator.push({
+            id: 'newsDetail',
+            params: {
+                news
+            }
+        })
         return (
-            <View style={styles.itemContainer}>
-                <View style={styles.infoContainer}>
-                    <Text style={styles.title}>{item.title}</Text>
+            <TouchableHighlight onPress={goDetail}>
+                <View style={styles.itemContainer}>
+                    <View style={styles.infoContainer}>
+                        <Text style={styles.title}>{news.title}</Text>
+                    </View>
+                    <Image
+                        source={{ uri: news.images[0] }}
+                        style={styles.img}
+                        />
                 </View>
-                <Image
-                    source={{ uri: item.images[0] }}
-                    style={styles.img}
-                    />
-            </View>
+            </TouchableHighlight>
         );
     }
 
