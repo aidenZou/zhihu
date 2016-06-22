@@ -32,8 +32,7 @@ export default class extends Component {
     }
 
     fetchData(id) {
-        REQUEST_URL += id
-        fetch(REQUEST_URL)
+        fetch(REQUEST_URL + id)
             .then((response) => response.json())
             .then((responseData) => {
                 this.setState({
@@ -72,7 +71,7 @@ export default class extends Component {
 
     renderHtml(HTML) {
         let BGWASH = 'rgba(255,255,255,0.8)'
-        const HTMLTEXT = `
+        const SOURCE = `
             <!DOCTYPE html>\n
             <html>
             <head>
@@ -94,7 +93,7 @@ export default class extends Component {
                 style={{
                     backgroundColor: BGWASH,
                 }}
-                source={{html: HTMLTEXT}}
+                source={{html: SOURCE}}
                 scalesPageToFit={true}
                 />
         )

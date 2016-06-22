@@ -42,7 +42,7 @@ export default class extends Component {
         fetch(REQUEST_URL)
             .then((response) => response.json())
             .then((responseData) => {
-                console.log(responseData)
+                // console.log(responseData)
                 this.setState({
                     date: responseData.date,
                     top_stories: responseData.top_stories,
