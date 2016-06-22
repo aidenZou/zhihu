@@ -72,13 +72,29 @@ export default class extends Component {
 
     renderHtml(HTML) {
         let BGWASH = 'rgba(255,255,255,0.8)'
-
+        const HTMLTEXT = `
+            <!DOCTYPE html>\n
+            <html>
+            <head>
+            <title>正文</title>
+            <meta http-equiv="content-type" content="text/html; charset=utf-8">
+            <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+            <link rel="stylesheet" type="text/css" href="http://news-at.zhihu.com/css/news_qa.auto.css?v=4b3e3"/>
+            <style type="text/css">
+            .headline {display: none;}
+            </style>
+            </head>
+            <body>
+            ${HTML}
+            </body>
+            </html>
+            `;
         return (
             <WebView
                 style={{
                     backgroundColor: BGWASH,
                 }}
-                source={{html: HTML}}
+                source={{html: HTMLTEXT}}
                 scalesPageToFit={true}
                 />
         )
